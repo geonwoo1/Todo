@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo/view/BottomNavi.dart';
+import 'package:todo/view/FirstPage.dart';
 import 'package:todo/view/MainPage.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: '건우Todo',
-      home: MainPage()
+      home: bottomNavi()
     );
   }
 }
