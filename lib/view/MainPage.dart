@@ -26,6 +26,9 @@ class MainPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(writePage(),
+            arguments:{
+            "titleArr":controller.titleArr,
+              "completedArr":controller.completedArr},
            opaque: false,
             transition: Transition.downToUp,);
         },

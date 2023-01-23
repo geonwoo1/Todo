@@ -12,17 +12,16 @@ class TodoController extends GetxController {
   var list =[];
   var todayList=[];
   var _cnt = 0;
-
   // todolist 하드코딩 => DB에 저장?
   var todo2 = [
     TodoList(date: "20230123", content: [
-      Content(title: "플러터공부하기", desc: "getx공부", complete: false),
-      Content(title: "플러터공부하기2", desc: "TodoApp", complete: false),
-      Content(title: "플러터공부하기3", desc: "getx공부", complete: false),
+      Content(title: "플러터공부하기", desc: "getx공부", complete: false,important: true),
+      Content(title: "플러터공부하기2", desc: "TodoApp", complete: false,important: true),
+      Content(title: "플러터공부하기3", desc: "getx공부", complete: false,important: false),
     ]),
     TodoList(
         date: "20230125",
-        content: [Content(title: "플러터공부하기", desc: "getx공부", complete: false)])
+        content: [Content(title: "플러터공부하기", desc: "getx공부", complete: false,important: true)])
   ];
 
   @override
@@ -51,13 +50,15 @@ class TodoController extends GetxController {
               {"title": j.title,
                 "complted": false,
                 "desc":j.desc,
+                "important":j.important,
                 "index": _cnt
 
               })
               : completedArr.add(
               {"title": j.title,
-                "complted": true,
+                "completed": true,
                 "desc":j.desc,
+                "important":j.important,
                 "index": _cnt
                 });
           _cnt += 1;
@@ -100,7 +101,21 @@ class TodoController extends GetxController {
       //홈화면에서 보여줄 오늘 일정 추가
       DateFormat('yyyyMMdd').format(listTime) == DateFormat('yyyyMMdd').format(now) ? todayList.add(i) :"";
     }
-    print(list[0].content.length);
-    print(todayList.length);
+  }
+
+  void insertTodo(titleArr,completedArr) {
+    if (titleArr.isEmpty && completedArr.isEmpty) {
+      todo2.add(TodoList(date: DateFormat('yyyyMMdd').format(selectedDay1),
+          content: [Content(title: "gd", desc: "Gd", complete: false,important:true)
+          ]));
+    } else {
+      for (var i in todo2) {
+        if (DateFormat('yyyyMMdd').format(focusedDay1) == i.date) {
+          i.content.add(
+              Content(title: "플러터공부4", desc: "desc", complete: false,important: true));
+        }
+      }
+    }
+    change(selectedDay1, focusedDay1);
   }
 }

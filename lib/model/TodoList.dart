@@ -31,21 +31,25 @@ class Content {
     required this.title,
     required this.desc,
     required this.complete,
+    required this.important,
   });
 
   String title;
   String desc;
   bool complete;
+  bool important;
 
   factory Content.fromJson(Map<String, dynamic> json) => Content(
     title: json["title"],
     desc: json["desc"],
     complete: json["complete"],
+    important: json["important"],
   );
 
   Map<String, dynamic> toJson() => {
     "title": title,
     "desc": desc,
     "complete": complete,
+    "important" : important,
   };
 }
