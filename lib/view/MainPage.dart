@@ -6,10 +6,11 @@ import 'package:todo/controller/TodoCotroller.dart';
 import 'package:todo/icons/my_flutter_app_icons.dart';
 import 'package:todo/main.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:todo/view/writePage.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
-
+  final formKey = GlobalKey<FormState>();
   final controller = Get.put(TodoController());
 
   @override
@@ -23,7 +24,11 @@ class MainPage extends StatelessWidget {
         title: Text("ToDo"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(writePage(),
+           opaque: false,
+            transition: Transition.downToUp,);
+        },
         backgroundColor: Colors.pinkAccent,
         child: Icon(
           MyFlutterApp.pencil_alt,
@@ -69,7 +74,6 @@ class MainPage extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap:(){
-                                          print(controller.titleArr[index]);
                                           Get.defaultDialog(
                                             title: controller.titleArr[index]['title'],
                                          middleText: controller.titleArr[index]['desc']

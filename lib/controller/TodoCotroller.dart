@@ -10,6 +10,7 @@ class TodoController extends GetxController {
   var titleArr = [];
   var completedArr = [];
   var list =[];
+  var todayList=[];
   var _cnt = 0;
 
   // todolist 하드코딩 => DB에 저장?
@@ -30,6 +31,7 @@ class TodoController extends GetxController {
     super.onInit();
     todo2 = todo2;
     firstPageView();
+    change(selectedDay1,focusedDay1);
     update();
   }
 
@@ -92,10 +94,13 @@ class TodoController extends GetxController {
       int c = int.parse(i.date.substring(6,8));
       DateTime now = DateTime.now();
       DateTime listTime = DateTime.utc(a,b,c);
+      //홈화면에서 보여줄 다가오는(7일이내) 일정 추가
       listTime.isAfter(now) && listTime.isBefore(now.add(const Duration(days:7))) ?
           list.add(i) : "";
-
+      //홈화면에서 보여줄 오늘 일정 추가
+      DateFormat('yyyyMMdd').format(listTime) == DateFormat('yyyyMMdd').format(now) ? todayList.add(i) :"";
     }
     print(list[0].content.length);
+    print(todayList.length);
   }
 }
