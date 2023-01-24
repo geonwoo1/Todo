@@ -27,6 +27,7 @@ class MainPage extends StatelessWidget {
         onPressed: () {
           Get.to(writePage(),
             arguments:{
+            "date": controller.selectedDay1,
             "titleArr":controller.titleArr,
               "completedArr":controller.completedArr},
            opaque: false,
@@ -95,12 +96,12 @@ class MainPage extends StatelessWidget {
                                                     controller.titleArr[index]
                                                         ['index']);
                                                 controller.titleArr[index]
-                                                    ['complted'] = value;
+                                                    ['complete'] = value;
                                               }
                                               ;
                                             },
                                             value: controller.titleArr[index]
-                                                ['complted'],
+                                                ['complete'],
                                           ),
                                           trailing: IconButton(
                                             onPressed: () {
@@ -111,6 +112,7 @@ class MainPage extends StatelessWidget {
                                                   textCancel: "취소",
                                                   cancelTextColor: Colors.red,
                                                   onConfirm: () {
+                                                    controller.deleteTodo(index);
                                                     Get.back();
                                                   },
                                                   onCancel: () {
@@ -154,6 +156,7 @@ class MainPage extends StatelessWidget {
                                                   textCancel: "취소",
                                                   cancelTextColor: Colors.red,
                                                   onConfirm: () {
+                                                    controller.deleteTodo(index);
                                                     Get.back();
                                                   },
                                                   onCancel: () {

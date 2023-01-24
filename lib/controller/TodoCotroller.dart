@@ -48,7 +48,7 @@ class TodoController extends GetxController {
           j.complete == false
               ? titleArr.add(
               {"title": j.title,
-                "complted": false,
+                "complete": false,
                 "desc":j.desc,
                 "important":j.important,
                 "index": _cnt
@@ -56,7 +56,7 @@ class TodoController extends GetxController {
               })
               : completedArr.add(
               {"title": j.title,
-                "completed": true,
+                "complete": true,
                 "desc":j.desc,
                 "important":j.important,
                 "index": _cnt
@@ -89,6 +89,8 @@ class TodoController extends GetxController {
   }
 
   void firstPageView(){
+    list=[];
+    todayList=[];
     for(var i in todo2){
       int a = int.parse(i.date.substring(0,4));
       int b = int.parse(i.date.substring(4,6));
@@ -100,22 +102,37 @@ class TodoController extends GetxController {
           list.add(i) : "";
       //홈화면에서 보여줄 오늘 일정 추가
       DateFormat('yyyyMMdd').format(listTime) == DateFormat('yyyyMMdd').format(now) ? todayList.add(i) :"";
+
     }
   }
 
-  void insertTodo(titleArr,completedArr) {
+  void insertTodo(titleArr,completedArr,title,desc,important) {
     if (titleArr.isEmpty && completedArr.isEmpty) {
       todo2.add(TodoList(date: DateFormat('yyyyMMdd').format(selectedDay1),
-          content: [Content(title: "gd", desc: "Gd", complete: false,important:true)
+          content: [Content(title: title, desc: desc, complete: false,important:important)
           ]));
     } else {
       for (var i in todo2) {
         if (DateFormat('yyyyMMdd').format(focusedDay1) == i.date) {
           i.content.add(
-              Content(title: "플러터공부4", desc: "desc", complete: false,important: true));
+              Content(title: title, desc: desc, complete: false,important: important));
         }
       }
     }
     change(selectedDay1, focusedDay1);
+    firstPageView();
+  }
+  void deleteTodo(idx){
+    for (var i=0; i<todo2.length; i++) {
+      if (DateFormat('yyyyMMdd').format(focusedDay1) == todo2[i].date) {
+        todo2[i].content.removeAt(idx);
+        if(todo2[i].content.length==0){
+          todo2.removeAt(i);
+        }
+      }
+      change(selectedDay1, focusedDay1);
+      firstPageView();
+    }
+
   }
 }

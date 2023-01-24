@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:todo/controller/WriteController.dart';
 import 'package:todo/icons/my_flutter_app_icons.dart';
 import 'package:todo/view/MainPage.dart';
@@ -9,12 +10,16 @@ import '../controller/TodoCotroller.dart';
 class writePage extends StatelessWidget {
   writePage({Key? key}) : super(key: key);
 
-
+  final _key = GlobalKey<FormState>(); // 폼 키 생성
   final controller = Get.put(writeController());
   final controller2 = Get.put(TodoController());
+
   @override
   Widget build(BuildContext context) {
-    var a = Get.arguments;
+    String? title;
+    String? desc;
+    bool important= false;
+    var a = Get.arguments; // 메인페이지에서 넘겨준 데이터 받아오기
     final size = MediaQuery.of(context).size;
     final h = size.height;
     final w = size.width;
@@ -41,83 +46,126 @@ class writePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            "2023-01-23",
+                            DateFormat('yy년 MM월 dd일').format(a['date']),
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Obx(()=>
-                              IconButton(onPressed:(){
+                          Obx(() => IconButton(
+                              onPressed: () {
                                 controller.colorChange();
+                                controller.star==true? important=true :false;
                               },
-                              padding: EdgeInsets.only(left: w*0.6),
-                              icon:controller.star==false ?
-                              Icon(MyFlutterApp.star,color: Colors.grey.shade300,
-                              size: 40,): Icon(MyFlutterApp.star,color: Colors.yellow,
-                                size: 40,)
-
-                              )
-                          )],
+                              padding: EdgeInsets.only(left: w * 0.6),
+                              icon: controller.star == false
+                                  ? Icon(
+                                      MyFlutterApp.star,
+                                      color: Colors.grey.shade300,
+                                      size: 40,
+                                    )
+                                  : Icon(
+                                      MyFlutterApp.star,
+                                      color: Colors.yellow,
+                                      size: 40,
+                                    )))
+                        ],
                       )),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: Colors.grey.shade400,
-                    ),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        hintText: '할일을 입력해주세요.',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: h * 0.5,
-                    margin: EdgeInsets.all(10),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: Colors.grey.shade400,
-                    ),
-                    child: TextField(
-                      maxLines: null,
-                      expands: true,
-                      decoration: const InputDecoration(
-                        hintText: '할일에 대해 설명을 입력해주세요.',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: h * 0.1,
-                        width: w * 0.45,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text("취소"),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.pinkAccent.shade100
+                  Form(
+                    key: _key,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.grey.shade400,
+                          ),
+                          child: TextFormField(
+                            onSaved: (val) {
+                             if(val!.length>1){
+                               title = val;
+                             }
+                            },
+                            autovalidateMode:AutovalidateMode.always,
+                            validator: (val) {
+                              if (val!.length < 1) {
+                                return "필수입력 항목입니다.";
+                              }
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "할일을 입력해주세요",
+                              border: InputBorder.none,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                          height: h * 0.1,
-                          width: w * 0.45,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              controller2.insertTodo(a['titleArr'],a['completedArr']);
-                              Get.to(MainPage());
+                        Container(
+                          height: h * 0.5,
+                          margin: EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.grey.shade400,
+                          ),
+                          child: TextFormField(
+                            onSaved: (val) {
+                              if(val!.length>=1){
+                                desc=val;
+                              }else{
+                                desc="";
+                              }
                             },
-                            child: Text("작성하기"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.pinkAccent
+                            validator: (val) {
+                              return null;
+                            },
+                            maxLines: 10,
+                            decoration: const InputDecoration(
+                              hintText: '할일에 대한 설명을 입력해주세요.',
+                              border: InputBorder.none,
                             ),
-                          )),
-                    ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: h * 0.1,
+                              width: w * 0.45,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: Text("취소"),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Colors.pinkAccent.shade100),
+                              ),
+                            ),
+                            Container(
+                                height: h * 0.1,
+                                width: w * 0.45,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_key.currentState!.validate()) {
+                                      _key.currentState!.save(); //폼저장하기
+                                      controller2.insertTodo(
+                                          a['titleArr'], a['completedArr'],title,desc,important);
+                                      Get.back();
+                                      Get.snackbar(
+                                        '저장완료!',
+                                        '할일이 추가되었습니다!',
+                                        backgroundColor: Colors.white,
+                                      );
+                                    }
+                                  },
+                                  child: Text("작성하기"),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.pinkAccent),
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
