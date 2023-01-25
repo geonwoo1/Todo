@@ -4,7 +4,7 @@ import 'package:todo/controller/TodoCotroller.dart';
 import 'package:todo/icons/my_flutter_app_icons.dart';
 import 'package:todo/view/TapbarWidget.dart';
 
-class FirstPage extends StatelessWidget {
+class homePage extends StatelessWidget {
   final controller = Get.put(TodoController());
 
   @override
@@ -15,20 +15,23 @@ class FirstPage extends StatelessWidget {
     return DefaultTabController(length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.pink,
-          title: Text("ToDo"),
-            bottom: TabBar(
+          backgroundColor: Colors.white,
+            title: TabBar(
               tabs: [
                 Tab(
                   text: "today",
                 ),
                 Tab(
-                  text: "comingWeek",
+                  text: "upcoming",
                 )
-              ],
+              ],indicatorWeight:1 ,
+              indicatorSize: TabBarIndicatorSize.label,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: Colors.black,
             ),
         ),
-        body:TabBarView(children: [today(h, w),comingWeek(h, w)],)
+        body:TabBarView(children: [today(h, w),upcomig(h, w)],)
       ),
     );
   }

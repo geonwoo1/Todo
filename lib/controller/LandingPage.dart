@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:todo/controller/TodoCotroller.dart';
-import 'package:todo/view/FirstPage.dart';
-import 'package:todo/view/MainPage.dart';
+import 'package:todo/view/homePage.dart';
+import 'package:todo/view/calendarPage.dart';
 
 class LandingPage extends GetxController{
   final currentIndex = 0.obs;
   List pages = [
-    FirstPage(),
-    MainPage(),
+    homePage(),
+    calendarPage(),
   ];
 
   get currentPage => pages[currentIndex.value];
