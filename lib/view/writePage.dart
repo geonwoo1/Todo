@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:todo/controller/WriteController.dart';
 import 'package:todo/icons/my_flutter_app_icons.dart';
-import 'package:todo/view/MainPage.dart';
+import 'package:todo/view/calendarPage.dart';
 
 import '../controller/TodoCotroller.dart';
 
@@ -11,7 +10,6 @@ class writePage extends StatelessWidget {
   writePage({Key? key}) : super(key: key);
 
   final _key = GlobalKey<FormState>(); // 폼 키 생성
-  final controller = Get.put(writeController());
   final controller2 = Get.put(TodoController());
 
   @override
@@ -37,35 +35,26 @@ class writePage extends StatelessWidget {
             child: Container(
               width: w,
               height: h,
-              color: Colors.white,
+              color: Colors.grey.shade200,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       margin: EdgeInsets.all(10),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             DateFormat('yy년 MM월 dd일').format(a['date']),
                             style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Obx(() => IconButton(
+                          ), IconButton(
                               onPressed: () {
-                                controller.colorChange();
-                                controller.star==true? important=true :false;
+                                Get.back();
                               },
-                              padding: EdgeInsets.only(left: w * 0.6),
-                              icon: controller.star == false
-                                  ? Icon(
-                                      MyFlutterApp.star,
-                                      color: Colors.grey.shade300,
-                                      size: 40,
-                                    )
-                                  : Icon(
-                                      MyFlutterApp.star,
-                                      color: Colors.yellow,
-                                      size: 40,
-                                    )))
+                              icon: Icon(MyFlutterApp.cancel,
+                                      color: Colors.black,
+                                      size: 15,
+                                    ))
                         ],
                       )),
                   Form(
@@ -79,7 +68,7 @@ class writePage extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
-                            color: Colors.grey.shade400,
+                            color: Colors.white,
                           ),
                           child: TextFormField(
                             onSaved: (val) {
@@ -87,14 +76,14 @@ class writePage extends StatelessWidget {
                                title = val;
                              }
                             },
-                            autovalidateMode:AutovalidateMode.always,
+                          //  autovalidateMode:AutovalidateMode.always,
                             validator: (val) {
                               if (val!.length < 1) {
                                 return "필수입력 항목입니다.";
                               }
                             },
                             decoration: const InputDecoration(
-                              hintText: "할일을 입력해주세요",
+                              hintText: "일정을 입력해주세요",
                               border: InputBorder.none,
                             ),
                           ),
@@ -105,7 +94,7 @@ class writePage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
-                            color: Colors.grey.shade400,
+                            color: Colors.white,
                           ),
                           child: TextFormField(
                             onSaved: (val) {
@@ -120,12 +109,39 @@ class writePage extends StatelessWidget {
                             },
                             maxLines: 10,
                             decoration: const InputDecoration(
-                              hintText: '할일에 대한 설명을 입력해주세요.',
+                              hintText: '일정에 대한 설명을 입력해주세요.',
                               border: InputBorder.none,
                             ),
                           ),
-                        ),
-                        Row(
+                        ),  Container(
+                            height: h * 0.1,
+                            width: w,
+                            padding: EdgeInsets.fromLTRB(w*0.05, 0, w*0.05, 0),
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  if (_key.currentState!.validate()) {
+                                    _key.currentState!.save(); //폼저장하기
+                                    controller2.insertTodo(
+                                        a['titleArr'], a['completedArr'],title,desc,important);
+                                    Get.back();
+                                    Get.snackbar(
+                                      '저장완료!',
+                                      '할일이 추가되었습니다!',
+                                      backgroundColor: Colors.white,
+                                    );
+                                  }
+                                },
+                                child: Text("작성하기"),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+
+                                    backgroundColor: Colors.black54)
+                            )),
+
+
+
+
+                       /* Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
@@ -138,7 +154,7 @@ class writePage extends StatelessWidget {
                                 child: Text("취소"),
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        Colors.pinkAccent.shade100),
+                                        Colors.white10),
                               ),
                             ),
                             Container(
@@ -160,10 +176,10 @@ class writePage extends StatelessWidget {
                                   },
                                   child: Text("작성하기"),
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.pinkAccent),
+                                      backgroundColor: Colors.black26)
                                 )),
                           ],
-                        ),
+                        ),*/
                       ],
                     ),
                   ),

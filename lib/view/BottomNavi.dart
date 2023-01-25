@@ -15,15 +15,22 @@ class bottomNavi extends StatelessWidget {
           onTap: Get.put(LandingPage()).changePage,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(MyFlutterApp.home, color: Colors.pinkAccent,),
+              icon: Icon(MyFlutterApp.home),
               label: "홈",
             ),
             BottomNavigationBarItem(
-              icon: Icon(MyFlutterApp.calendar,color: Colors.pinkAccent,),
+              icon: Icon(MyFlutterApp.calendar),
               label: "캘린더",
             ),
           ],
           selectedItemColor: Colors.black,
+          selectedIconTheme: IconThemeData(
+            color: Colors.black
+          ),
+          unselectedItemColor: Colors.grey,
+          unselectedIconTheme: IconThemeData(
+            color: Colors.grey
+          ),
         ),
       ),
     );
