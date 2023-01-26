@@ -14,14 +14,22 @@ class TodoController extends GetxController {
   var _cnt = 0;
   // todolist 하드코딩 => DB에 저장?
   var todo2 = [
-    TodoList(date: "20230123", content: [
+    TodoList(date: "20230126", content: [
       Content(title: "플러터공부하기", desc: "getx공부", complete: false,important: true),
       Content(title: "플러터공부하기2", desc: "TodoApp", complete: false,important: true),
-      Content(title: "플러터공부하기3", desc: "getx공부", complete: false,important: false),
+      Content(title: "플러터공부하기3", desc: "getx공부3", complete: false,important: false),
     ]),
     TodoList(
-        date: "20230125",
-        content: [Content(title: "플러터공부하기", desc: "getx공부", complete: false,important: true)])
+        date: "20230127",
+        content: [Content(title: "플러터공부하기4", desc: "getx공부", complete: false,important: true)]),
+    TodoList(
+        date: "20230128",
+        content: [Content(title: "플러터공부하기5", desc: "getx공부", complete: false,important: true)]),
+    TodoList(date: "20230130", content: [
+      Content(title: "청소하기", desc: "방 청소", complete: false,important: true),
+      Content(title: "설거지", desc: "설거지", complete: false,important: true),
+      Content(title: "플러터공부하기3", desc: "getx공부3", complete: false,important: false),
+    ]),
   ];
 
   @override
@@ -106,16 +114,16 @@ class TodoController extends GetxController {
     }
   }
 
-  void insertTodo(titleArr,completedArr,title,desc,important) {
+  void insertTodo(titleArr,completedArr,title,desc) {
     if (titleArr.isEmpty && completedArr.isEmpty) {
       todo2.add(TodoList(date: DateFormat('yyyyMMdd').format(selectedDay1),
-          content: [Content(title: title, desc: desc, complete: false,important:important)
+          content: [Content(title: title, desc: desc, complete: false,important:true)
           ]));
     } else {
       for (var i in todo2) {
         if (DateFormat('yyyyMMdd').format(focusedDay1) == i.date) {
           i.content.add(
-              Content(title: title, desc: desc, complete: false,important: important));
+              Content(title: title, desc: desc, complete: false,important: true));
         }
       }
     }

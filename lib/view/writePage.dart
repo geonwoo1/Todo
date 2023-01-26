@@ -16,7 +16,6 @@ class writePage extends StatelessWidget {
   Widget build(BuildContext context) {
     String? title;
     String? desc;
-    bool important= false;
     var a = Get.arguments; // 메인페이지에서 넘겨준 데이터 받아오기
     final size = MediaQuery.of(context).size;
     final h = size.height;
@@ -122,7 +121,7 @@ class writePage extends StatelessWidget {
                                   if (_key.currentState!.validate()) {
                                     _key.currentState!.save(); //폼저장하기
                                     controller2.insertTodo(
-                                        a['titleArr'], a['completedArr'],title,desc,important);
+                                        a['titleArr'], a['completedArr'],title,desc);
                                     Get.back();
                                     Get.snackbar(
                                       '저장완료!',

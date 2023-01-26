@@ -94,7 +94,6 @@ Widget today(h, w) {
                                         },
                                         icon: Icon(
                                           MyFlutterApp.trash_empty,
-                                          //color: Colors.pinkAccent,
                                         ),
                                       ),
                                       title: Text(controller.todayList[index]
