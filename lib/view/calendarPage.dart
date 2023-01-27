@@ -81,7 +81,6 @@ class calendarPage extends StatelessWidget {
                                         print(controller.selectedDay1);
                                         controller.change(DateTime.now(), DateTime.now());
                                 }, child: Text("오늘 날짜 보러가기",style: TextStyle(
-                                color: Colors.red
                               ),))
                             ],
                           ) :
