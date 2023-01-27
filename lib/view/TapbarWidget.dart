@@ -83,7 +83,7 @@ Widget today(h, w) {
                                               textCancel: "취소",
                                               cancelTextColor: Colors.red,
                                               onConfirm: () {
-                                                controller.deleteTodo(idx);
+                                                controller.deleteTodo(idx,DateTime.now());
                                                 Get.back();
                                               },
                                               onCancel: () {
@@ -191,7 +191,11 @@ Widget upcomig(h, w) {
                                           textCancel: "취소",
                                           cancelTextColor: Colors.red,
                                           onConfirm: () {
-                                            controller.deleteTodo(idx);
+                                            var a =int.parse(controller.list[index].date.substring(0, 4)) ;
+                                            var b =int.parse(controller.list[index].date.substring(4,6));
+                                            var c =int.parse(controller.list[index].date.substring(6));
+                                            controller.deleteTodo(idx,DateTime.utc(a,b,c));
+                                            print(idx);
                                             Get.back();
                                           },
                                           onCancel: () {

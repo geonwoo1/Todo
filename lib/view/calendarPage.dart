@@ -33,11 +33,20 @@ class calendarPage extends StatelessWidget {
           MyFlutterApp.pencil_alt,color: Colors.black,
         ),
       ),
-      body: SafeArea(child: GetBuilder<TodoController>(builder: (controller) {
+      body: SafeArea(child:
+      GetBuilder<TodoController>(builder: (controller) {
         return SlidingUpPanel(
+          onPanelOpened: (){
+            var value =true;
+            controller.calendarChange(value);
+          },
+          onPanelClosed: (){
+            var value =false;
+            controller.calendarChange(value);
+          },
           borderRadius:BorderRadius.vertical(top: Radius.circular(50)),
           minHeight: h * 0.2,
-          maxHeight: h * 0.8,
+          maxHeight: h * 0.7,
           panelBuilder: (ScrollController sc) => Container(
             color: Colors.white,
             child: Column(
@@ -59,7 +68,27 @@ class calendarPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          SizedBox(height: h * 0.05),
+                          SizedBox(height: h * 0.02),
+                          DateFormat('yyyyMMdd').format(controller.selectedDay1)!=DateFormat('yyyyMMdd').format(DateTime.now()) ?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("${DateFormat('yy년MM월dd일').format(controller.selectedDay1)}",style: TextStyle(
+                                fontWeight: FontWeight.bold,fontSize: 16
+                              ),), TextButton(
+                                onPressed: (){
+                                        print(DateTime.now());
+                                        print(controller.selectedDay1);
+                                        controller.change(DateTime.now(), DateTime.now());
+                                }, child: Text("오늘 날짜 보러가기",style: TextStyle(
+                                color: Colors.red
+                              ),))
+                            ],
+                          ) :
+                          Text("${DateFormat('yy년MM월dd일').format(controller.selectedDay1)}",style: TextStyle(
+                      fontWeight: FontWeight.bold,fontSize: 16
+                  ),),
+                          SizedBox(height: h * 0.03),
                           Text(
                             "일정",
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -89,13 +118,9 @@ class calendarPage extends StatelessWidget {
                                                     value,
                                                     controller.titleArr[index]
                                                         ['index']);
-                                                controller.titleArr[index]
-                                                    ['complete'] = value;
-                                              }
-                                              ;
+                                              };
                                             },
-                                            value: controller.titleArr[index]
-                                                ['complete'],
+                                            value:false
                                           ),
                                           trailing: IconButton(
                                             onPressed: () {
@@ -106,7 +131,7 @@ class calendarPage extends StatelessWidget {
                                                   textCancel: "취소",
                                                   cancelTextColor: Colors.red,
                                                   onConfirm: () {
-                                                    controller.deleteTodo(index);
+                                                    controller.deleteTodo(index,controller.focusedDay1);
                                                     Get.back();
                                                   },
                                                   onCancel: () {
@@ -149,6 +174,19 @@ class calendarPage extends StatelessWidget {
                                         } ,
                                         child: Card(
                                           child: ListTile(
+                                            leading: Checkbox(
+                                              activeColor: Colors.white,
+                                              checkColor: Colors.green,
+                                              onChanged: (value) {
+                                                {
+                                                  controller.todoComplted(
+                                                      value,
+                                                      controller.completedArr[index]
+                                                      ['index']);
+                                                };
+                                              },
+                                              value: true
+                                            ),
                                             trailing: IconButton(
                                               onPressed: () {
                                                 Get.defaultDialog(
@@ -159,7 +197,7 @@ class calendarPage extends StatelessWidget {
                                                     textCancel: "취소",
                                                     cancelTextColor: Colors.red,
                                                     onConfirm: () {
-                                                      controller.deleteTodo(index);
+                                                      controller.deleteTodo(index,controller.focusedDay1);
                                                       Get.back();
                                                     },
                                                     onCancel: () {
@@ -195,6 +233,7 @@ class calendarPage extends StatelessWidget {
           body: Container(
             color: Colors.white,
             child: TableCalendar(
+              calendarFormat: controller.calendar,
               //달력 내용
               focusedDay: controller.focusedDay1,
               firstDay: DateTime.utc(2022, 1, 1),

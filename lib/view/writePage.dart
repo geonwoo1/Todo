@@ -30,7 +30,7 @@ class writePage extends StatelessWidget {
           ),
           AnimatedPositioned(
             duration: Duration(milliseconds: 200),
-            top: 100,
+            top:h*0.2,
             child: Container(
               width: w,
               height: h,
@@ -75,7 +75,7 @@ class writePage extends StatelessWidget {
                                title = val;
                              }
                             },
-                          //  autovalidateMode:AutovalidateMode.always,
+                            autovalidateMode:AutovalidateMode.onUserInteraction,
                             validator: (val) {
                               if (val!.length < 1) {
                                 return "필수입력 항목입니다.";
@@ -113,7 +113,7 @@ class writePage extends StatelessWidget {
                             ),
                           ),
                         ),  Container(
-                            height: h * 0.1,
+                            height: h * 0.05,
                             width: w,
                             padding: EdgeInsets.fromLTRB(w*0.05, 0, w*0.05, 0),
                             child: ElevatedButton(

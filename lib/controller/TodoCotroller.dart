@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:todo/model/TodoList.dart';
 
 class TodoController extends GetxController {
@@ -7,6 +8,7 @@ class TodoController extends GetxController {
   DateTime selectedDay1 = DateTime.now();
 
   //날짜 선택시 할일, 완료한일 표시하기위한 배열 생성
+  var calendar = CalendarFormat.month;
   var titleArr = [];
   var completedArr = [];
   var list =[];
@@ -93,7 +95,7 @@ class TodoController extends GetxController {
       }
     }
     value == true ? value = false : value = true;
-    update();
+    change(selectedDay1, focusedDay1);
   }
 
   void firstPageView(){
@@ -130,7 +132,7 @@ class TodoController extends GetxController {
     change(selectedDay1, focusedDay1);
     firstPageView();
   }
-  void deleteTodo(idx){
+  void deleteTodo(idx,focusedDay1){
     for (var i=0; i<todo2.length; i++) {
       if (DateFormat('yyyyMMdd').format(focusedDay1) == todo2[i].date) {
         todo2[i].content.removeAt(idx);
@@ -141,6 +143,10 @@ class TodoController extends GetxController {
       change(selectedDay1, focusedDay1);
       firstPageView();
     }
-
   }
+  void calendarChange(value){
+    value ? calendar = CalendarFormat.week : calendar = CalendarFormat.month;
+    update();
+  }
+
 }
