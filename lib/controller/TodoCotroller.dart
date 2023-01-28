@@ -88,9 +88,9 @@ class TodoController extends GetxController {
     return [];
   }
   //체크박스 클릭시 완료 리스트로 이동
-  void todoComplted(value,idx) {
+  void todoComplted(value,idx,day) {
     for (var i in todo2) {
-      if (DateFormat('yyyyMMdd').format(focusedDay1) == i.date) {
+      if (DateFormat('yyyyMMdd').format(day) == i.date) {
         i.content[idx].complete =value;
       }
     }

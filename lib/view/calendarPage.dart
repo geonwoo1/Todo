@@ -116,7 +116,7 @@ class calendarPage extends StatelessWidget {
                                                 controller.todoComplted(
                                                     value,
                                                     controller.titleArr[index]
-                                                        ['index']);
+                                                        ['index'],controller.focusedDay1);
                                               };
                                             },
                                             value:false
@@ -181,7 +181,7 @@ class calendarPage extends StatelessWidget {
                                                   controller.todoComplted(
                                                       value,
                                                       controller.completedArr[index]
-                                                      ['index']);
+                                                      ['index'],controller.focusedDay1);
                                                 };
                                               },
                                               value: true

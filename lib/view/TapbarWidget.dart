@@ -66,9 +66,12 @@ Widget today(h, w) {
                                         activeColor: Colors.white,
                                         checkColor: Colors.green,
                                         onChanged: (value) {
+                                          var a =int.parse(controller.todayList[index].date.substring(0, 4)) ;
+                                          var b =int.parse(controller.todayList[index].date.substring(4,6));
+                                          var c =int.parse(controller.todayList[index].date.substring(6));
                                           {controller.todoComplted(
                                               value,
-                                              idx);
+                                              idx,DateTime.utc(a,b,c));
                                           controller.todayList[index].content[idx].complete = value;
                                           }
                                         },
@@ -174,11 +177,16 @@ Widget upcomig(h, w) {
                                     activeColor: Colors.white,
                                     checkColor: Colors.green,
                                     onChanged: (value) {
-                                      {controller.todoComplted(
+                                      var a =int.parse(controller.list[index].date.substring(0, 4)) ;
+                                      var b =int.parse(controller.list[index].date.substring(4,6));
+                                      var c =int.parse(controller.list[index].date.substring(6));
+                                      controller.todoComplted(value,idx,DateTime.utc(a,b,c));
+                                      print(idx);
+                                    /*  {*//*controller.todoComplted(
                                             value,
-                                            idx);
-                                        controller.list[index].content[idx].complete = value;
-                                      }
+                                            idx,);
+                                        controller.list[index].content[idx].complete = value;*//*
+                                      }*/
                                     },
                                     value: controller.list[index].content[idx].complete,
                                   ),
