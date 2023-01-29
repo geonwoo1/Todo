@@ -23,7 +23,7 @@
 - **언어** : Flutter
 - **IDEs** : androidStudio
 - **Package**: GetX(상태관리 및 바텀네비게이션), TableCalendar(캘린더)
-- **기간** : 2023-01-18~
+- **기간** : 2023-01-20~
 
 ## 2. 구현 화면
 
