@@ -6,9 +6,17 @@ import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:todo/view/TapbarWidget.dart';
 import 'package:todo/view/writePage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 void main() async {
   //달력 한글로 바꾸기 위해 설정
   await initializeDateFormatting();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
