@@ -1,16 +1,43 @@
-# todo
+# [플러터]TodoApp(과제)
 
-A new Flutter project.
+![image](https://user-images.githubusercontent.com/90121680/215307829-a5db3d91-4f0a-4a04-9d78-0bed42dbc3fe.png)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## 🤩 프로젝트 개발 목표 및 내용
 
-A few resources to get you started if this is your first Flutter project:
+- 일정 등록,삭제
+    - 일정 등록 및 삭제가 가능해야한다.
+- 캘린더 사용
+    - 캘린더를 사용해 일정을 볼 수 있어야 한다.
+- GetX 사용
+    - GetX를 사용해 상태관리 및 라우터 관리를 한다.
+- 오늘 일정, 다가오는 일정 보여주기
+    - 홈화면에서 오늘 일정과 다가오는 일정을 구분하여 보여준다 ⇒탭바 사용
+- 일정완료시 완료된 일정에 표시하기
+    - 체크박스 클릭시 완료된 일정으로 이동해야 한다.
+- 아이콘을 외부에서 다운받아 사용
+    - 플러터 기본 아이콘 대신 다른 아이콘을 사용해 본다.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## **1. 사용 기술 및 기간**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **언어** : Flutter
+- **IDEs** : androidStudio
+- **Package**: GetX(상태관리 및 바텀네비게이션), TableCalendar(캘린더)
+- **기간** : 2023-01-20~
+
+## 2. 구현 화면
+
+![image](https://user-images.githubusercontent.com/90121680/215307829-a5db3d91-4f0a-4a04-9d78-0bed42dbc3fe.png)
+![image](https://user-images.githubusercontent.com/90121680/215307861-0d35b084-552b-4bfe-85b2-8449935a4ee1.png)
+
+## 느낀점 및 알게된 점
+
+- 일정작성과 삭제를 리스트를 생성해 관리 했는데 생각보다 데이터를 관리하는게 어려웠다.
+- 슬라이딩업패널을 사용해 포커스된 날의 일정을 보여줬다. 이것을 통해 슬라이딩 업 패널 사용법을 알게 됐다.
+- 리스트뷰빌더 안에 리스트뷰빌더 생성하는 법을 알게 됐다.
+- 공통적으로 사용된 코드가 많았는데 이것을 컴포넌트화 해서 만들면 좋을거 같다는 생각을 했다.
+
+## 보완점
+
+- 현재 데이터를 플러터 안에 만들어 사용 했는데 서버를 연결하여 db나 api를 이용해야 한다.
+- 공통코드 컴포넌트화
