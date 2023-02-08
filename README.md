@@ -1,4 +1,4 @@
-# [플러터]TodoApp(과제)
+# [플러터]TodoApp
 
 ![image](https://user-images.githubusercontent.com/90121680/215307829-a5db3d91-4f0a-4a04-9d78-0bed42dbc3fe.png)
 
